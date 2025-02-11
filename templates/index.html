@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block header %}
+    <center>
+        <img src="{{ url_for('static', filename='images/3ds-1.webp')}}">
+    </center>
+    <h1 style="font-size: 300%;">
+        <center>
+            {% block title %}Explore games sales{% endblock %}
+        </center>
+    </h1>
+{% endblock %}
+{% block content %}
+    <div style="font-family: verdana; text-align:center; margin-left: auto; margin-right: auto; font-size: 200%;">This site allows you to explore games sales data.
+        Data is imported and modified from
+        https://www.kaggle.com/datasets/gsimonx37/vgchartz
+        <br>
+        Accuracy is not guaranteed. Please read the disclaimer.
+    </div>
+    <center>
+        <img src="{{ url_for('static', filename='images/wii.webp')}}">
+    </center>
+{% endblock %}

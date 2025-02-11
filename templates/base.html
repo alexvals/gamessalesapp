@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='main.css') }}">
+        {% block head %}{% endblock %}
+        <title>Games Shipped</title>
+    </head>
+    <body>
+        <div id="cursor-trail"></div>
+        <nav role="navigation" aria-label="main navigation">
+            <ul class="navbar">
+                <li><a href="/">Home</a></li>
+                <li><a href="{{ url_for('showAll') }}">Show All Games</a></li>
+                <li><a href="{{ url_for('filters') }}">Filter</a></li>
+                <li><a href="{{ url_for('graphs') }}">Graphs</a></li>
+            </ul>
+        </nav>
+        <br>
+        <section class="content">
+            <header>
+                {% block header %}{% endblock %}
+            </header>
+            {% block content %}{% endblock %}
+        </section>
+        <div id="acceptBlock" class="cookieBanner">
+            This site uses cookies for strictly functional purposes only.
+            <button id="accept" class="Accept">
+                Accept
+            </button>
+        </div>
+        <script>
+            window.onload = function() {
+                var popup = document.getElementById('acceptBlock');
+                if (!localStorage.getItem('closedBanner')) {
+                    popup.style.display = "block";
+                } else {
+                    popup.style.display = "none";
+                }
+                document.getElementById('accept').onclick = function() {
+                    localStorage.setItem('closedBanner', "true");
+                    this.parentNode.parentNode
+                        .removeChild(this.parentNode);
+                    return false;
+                };
+            };
+
+            document.addEventListener('mousemove', function(e) {
+                const trail = document.getElementById('cursor-trail');
+                const trailElement = document.createElement('div');
+                trailElement.classList.add('trail');
+                trailElement.style.left = e.pageX + 'px';
+                trailElement.style.top = e.pageY + 'px';
+                trail.appendChild(trailElement);
+
+                trailElement.addEventListener('animationend', function() {
+                    trailElement.remove();
+                });
+            });
+        </script>
+    </body>
+</html>
